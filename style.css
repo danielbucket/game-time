@@ -1,0 +1,7 @@
+.game-canvas {
+  border: 1px dashed;
+  margin: auto;
+  display: block;
+  background-image: url(glamourhair.jpg)no-repeat center center fixed;
+
+}
