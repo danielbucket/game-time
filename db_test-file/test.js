@@ -5,9 +5,16 @@ var x = canvas.width/2
 var y = canvas.height-30
 var dx = 2
 var dy = -2
+
 var paddleHeight = 10
 var paddleWidth = 75
+//why is this line so hard to grasp? I almost understand it!! ARRRGG!
+//What is it? What does it do?
 var paddleX = (canvas.width-paddleWidth)/2
+//I need a paddleY so that I have a reference for up and down motion
+//ned to varifiy that this next line is correct. appears so if modeled after line 13
+var paddleY = (canvas.height-paddleHeight)/2
+
 var rightPressed = false
 var leftPressed = false
 var upPressed = false
@@ -137,7 +144,7 @@ function draw() {
     }
     //after hitting eithier the left or right wall first, the ball will only be able to hit the upper limit of the canvas, hence the following else if statement.
     else if (y + dy > canvas.height-ballRadius) {
-      //I understand the if nested within an else if statement, but I don't understand this next if statement. I know what is intended to be done, but now how it's being done.
+      //I understand the if statement nested within an else if statement, but I don't understand this next if statement. I know what is intended to be done, but not how it's being done.
         if(x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy
         }
@@ -149,9 +156,15 @@ function draw() {
 //how do I incorporate the up and down keys here?
     if (rightPressed && paddleX < canvas.width-paddleWidth) {
         paddleX += 10
-    }
-    else if (leftPressed && paddleX > 0) {
+    } else if (leftPressed && paddleX > 0) {
+      //paddleX is the paddles x-plane position. I need a variable that indicates the paddles y-plane position.
         paddleX -= 10
+    }
+
+    if (upPressed && paddleY < canvas.height-paddleHeight) {
+      paddleY += 10
+    } else if (downPressed && paddleY > 0) {
+      paddleY -= 10
     }
 
     x += dx
