@@ -1,92 +1,161 @@
-var canvas = document.getElementById('myCanvas')
-var ctx = canvas.getContext('2d')
+var canvas = document.getElementById("myCanvas")
+var ctx = canvas.getContext("2d")
+var ballRadius = 20
 var x = canvas.width/2
-var y = canvas.height-20
-var dx = 1 //horizontal travel speed
-var dy = -2 //vertical travel speed
-//dx plus dy determines the direction of travel
-var ballRadius = 10
-
-var paddleWidth = 75
+var y = canvas.height-30
+var dx = 2
+var dy = -2
 var paddleHeight = 10
-var paddleX = (canvas.width-paddleWidth/2)
+var paddleWidth = 75
+var paddleX = (canvas.width-paddleWidth)/2
 var rightPressed = false
 var leftPressed = false
-//paddleLeft needs to move the paddle left as far as the left edge
-var paddleLeft =
-//paddleRight needs to move the paddle right as far as the right edge
-var paddleRight =
-//leftPaddleLimit needs to establish a left edge that it cannot move beyond.
-//needs to result in 'leftPressed = false' when the limit is reached
-var leftPaddleLimit =
-//rightPaddleLimit needs to establish a right edge that it cannot move beyond
-//needs to result in 'rightPressed = false' when the limit is reached
-var rightPaddleLimit = 
+var upPressed = false
+var downPressed = false
 
-setInterval(draw, 10)
+var brickRowCount = 6
+var brickColumnCount = 10
+var brickWidth = 80
+var brickHeight = 20
+var brickPadding = 10
+var brickOffsetTop = 30
+var brickOffsetLeft = 30
 
-document.addEventListener('keydown', keyDownHandler, false)
-document.addEventListener('keyup', keyUpHandler, false)
+var bricks = []
+for(c = 0; c < brickColumnCount; c++) {
+    bricks[c] = []
+    for(r = 0; r < brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1}
+    }
+}
+
+var score = 0
+
+document.addEventListener("keydown", keyDownHandler, false)
+document.addEventListener("keyup", keyUpHandler, false)
+
+function collisionDetection() {
+    for(c=0; c < brickColumnCount; c++) {
+        for(r=0; r < brickRowCount; r++) {
+            var b = bricks[c][r]
+            if (b.status == 1) {
+            if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                dy = -dy
+                b.status = 0
+                score++
+                if (score == brickRowCount*brickColumnCount) {
+                  alert('Great Success, Gypsy! Now Sell Me Your Tears')
+                  document.location.reload()
+                }
+              }
+            }
+        }
+    }
+}
+
+function drawScore() {
+  ctx.font = '16px Arial'
+  ctx.fillStyle = '#ff6b00'
+  ctx.fillText('SuperShit: '+score, 8, 20)
+}
 
 function keyDownHandler(e) {
-  if(e.keycode = 39) {rightPressed = true}
-  else if (e.keycode = 37) {leftPressed = true}
+    if (e.keyCode == 39) {
+        rightPressed = true
+    } if (e.keyCode == 38) {
+      upPressed = true
+    } if (e.keyCode == 40) {
+      downPressed = true
+    } else if (e.keyCode == 37) {
+        leftPressed = true
+    }
 }
 
+//why do I need to tell the machine that a button is not being pushed?
 function keyUpHandler(e) {
-  if(e.keycode = 39) {rightPressed = false}
-  else if (e.keycode = 37) {leftPressed = false}
-}
-
-function movePaddle() {
-  if(leftPressed = true) {}
+    if (e.keyCode == 39) {
+        rightPressed = false
+    } if (e.keyCode == 38) {
+        upPressed = false
+    } if (e.keyCode == 40) {
+        downPressed = false
+    } else if (e.keyCode == 37) {
+        leftPressed = false
+    }
 }
 
 function drawBall() {
-  ctx.beginPath()
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-  ctx.fillStyle = "#0095DD"
-  ctx.fill()
-  ctx.closePath()
+    ctx.beginPath()
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2)
+    ctx.fillStyle = "#0045DD"
+    ctx.fill();
+    ctx.closePath();
 }
 
 function drawPaddle() {
-  ctx.beginPath()
-  ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight)
-  ctx.fillStyle = '#f095dd'
-  ctx.fill()
-  ctx.endPath()
+    ctx.beginPath()
+    ctx.rect(paddleX, canvas.height-paddleHeight-10, paddleWidth, paddleHeight)
+    ctx.fillStyle = "#7e0000"
+    ctx.fill()
+    ctx.closePath()
 }
 
-//trying to draw a second ball
-// drawBall.prototype.newBall = function() {
-//   if (drawBall.count <= 2) {drawBall++}
-// }
+function drawBricks() {
+    for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+          if(bricks[c][r].status == 1) {
+            var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft
+            var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop
+            bricks[c][r].x = brickX
+            bricks[c][r].y = brickY
+            ctx.beginPath()
+            ctx.rect(brickX, brickY, brickWidth, brickHeight)
+            ctx.fillStyle = "#0095DD"
+            ctx.fill()
+            ctx.closePath()
+          }
+        }
+    }
+}
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawBall()
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    drawBall()
+    drawPaddle()
+    drawScore()
+    collisionDetection()
+    drawBricks()
 
-//if statement that determines if the ball is too high (hehe, too high)
-if (y + dy > canvas.height-ballRadius || y + dy < ballRadius) {dy = -dy}
-//if statement that determines if the ball is too far left or right
-if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {dx = -dx}
+    //first if statement defines left and right boundaries
+    //because of the nature of the balls direction, it will always hit a left or right wall first and must thereafter hit the upper limit of the canvas.
+    if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx
+    }
+    //second if statement defines the top and bottom boundaries
+    if (y + dy < ballRadius) {
+        dy = -dy
+    }
+    //after hitting eithier the left or right wall first, the ball will only be able to hit the upper limit of the canvas, hence the following else if statement.
+    else if (y + dy > canvas.height-ballRadius) {
+      //I understand the if nested within an else if statement, but I don't understand this next if statement. I know what is intended to be done, but now how it's being done.
+        if(x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy
+        }
+        else {
+            alert("GAME OVER")
+            document.location.reload()
+        }
+    }
+//how do I incorporate the up and down keys here?
+    if (rightPressed && paddleX < canvas.width-paddleWidth) {
+        paddleX += 10
+    }
+    else if (leftPressed && paddleX > 0) {
+        paddleX -= 10
+    }
 
-  x += dx
-  y += dy
-
-  drawPaddle()
+    x += dx
+    y += dy
 }
 
-
-// ctx.beginPath();
-// ctx.rect(20, 40, 25, 25);
-// ctx.fillStyle = "#FFE000";
-// ctx.fill();
-// ctx.closePath();
-
-// ctx.beginPath();
-// ctx.arc(50, 50, 15, Math.PI*2, false);
-// ctx.fillStyle = "#B2E2E2";
-// ctx.fill();
-// ctx.closePath();
+setInterval(draw, 10);
