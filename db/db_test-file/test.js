@@ -9,12 +9,9 @@ var dy = -2
 var paddleHeight = 10
 var paddleWidth = 75
 var paddleX = (canvas.width-paddleWidth)/2
-var paddleY = (canvas.height-paddleHeight)/2
 
 var rightPressed = false
 var leftPressed = false
-var upPressed = false
-var downPressed = false
 
 var brickRowCount = 6
 var brickColumnCount = 10
@@ -73,7 +70,6 @@ function keyDownHandler(e) {
         leftPressed = true
     }
 }
-
 function keyUpHandler(e) {
     if (e.keyCode == 39) {
         rightPressed = false
@@ -85,7 +81,6 @@ function keyUpHandler(e) {
         leftPressed = false
     }
 }
-
 function drawBall() {
     ctx.beginPath()
     ctx.arc(x, y, ballRadius, 0, Math.PI*2)
@@ -93,7 +88,6 @@ function drawBall() {
     ctx.fill();
     ctx.closePath();
 }
-
 function drawPaddle() {
     ctx.beginPath()
     ctx.rect(paddleX, canvas.height-paddleHeight-10, paddleWidth, paddleHeight)
@@ -101,7 +95,6 @@ function drawPaddle() {
     ctx.fill()
     ctx.closePath()
 }
-
 function drawBricks() {
     for(c=0; c<brickColumnCount; c++) {
         for(r=0; r<brickRowCount; r++) {
@@ -128,19 +121,9 @@ function draw() {
     collisionDetection()
     drawBricks()
 
-    //first if statement defines left and right boundaries
-    //because of the nature of the balls direction, it will always hit a left or right wall first and must thereafter hit the upper limit of the canvas.
     if (x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx
-    }
-    //second if statement defines the top and bottom boundaries
-    if (y + dy < ballRadius) {
-        dy = -dy
-    }
-    //after hitting eithier the left or right wall first, the ball will only be able to hit the upper limit of the canvas, hence the following else if statement.
-    else if (y + dy > canvas.height-ballRadius) {
-      //I understand the if statement nested within an else if statement, but I don't understand this next if statement. I know what is intended to be done, but not how it's being done.
-        if(x > paddleX && x < paddleX + paddleWidth) {
+    }if(x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy
         }
         else {
@@ -148,18 +131,10 @@ function draw() {
             document.location.reload()
         }
     }
-//how do I incorporate the up and down keys here?
     if (rightPressed && paddleX < canvas.width-paddleWidth) {
         paddleX += 10
     } else if (leftPressed && paddleX > 0) {
-      //paddleX is the paddles x-plane position. I need a variable that indicates the paddles y-plane position.
         paddleX -= 10
-    }
-
-    if (upPressed && paddleY < canvas.height-paddleHeight) {
-      paddleY += 10
-    } else if (downPressed && paddleY > 0) {
-      paddleY -= 10
     }
 
     x += dx

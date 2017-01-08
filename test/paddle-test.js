@@ -5,7 +5,6 @@ const Paddle = require('../lib/paddle.js')
 
 describe('Paddle', function() {
   context('with default attributes', function() {
-    // var paddle = new Draw()
 
     it('"Paddle()" should be a function', function() {
       var paddle = new Paddle(2,3,4,5)
