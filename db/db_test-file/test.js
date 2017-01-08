@@ -8,11 +8,7 @@ var dy = -2
 
 var paddleHeight = 10
 var paddleWidth = 75
-//why is this line so hard to grasp? I almost understand it!! ARRRGG!
-//What is it? What does it do?
 var paddleX = (canvas.width-paddleWidth)/2
-//I need a paddleY so that I have a reference for up and down motion
-//ned to varifiy that this next line is correct. appears so if modeled after line 13
 var paddleY = (canvas.height-paddleHeight)/2
 
 var rightPressed = false
@@ -29,9 +25,9 @@ var brickOffsetTop = 30
 var brickOffsetLeft = 30
 
 var bricks = []
-for(c = 0; c < brickColumnCount; c++) {
+for (c = 0; c < brickColumnCount; c++) {
     bricks[c] = []
-    for(r = 0; r < brickRowCount; r++) {
+    for (r = 0; r < brickRowCount; r++) {
         bricks[c][r] = { x: 0, y: 0, status: 1}
     }
 }
@@ -78,7 +74,6 @@ function keyDownHandler(e) {
     }
 }
 
-//why do I need to tell the machine that a button is not being pushed?
 function keyUpHandler(e) {
     if (e.keyCode == 39) {
         rightPressed = false
