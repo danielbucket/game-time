@@ -1,5 +1,25 @@
+.window-load-page {
+  width:100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro, .to-play, button{
+  margin-left: 30%;
+  margin-right: 30%
+}
+
+#game-wrapper {
+  display: none;
+}
+
+#game-over {
+  display: none;
+}
+
 .game-canvas {
-  border: 1px dashed;
+  border: 3px solid orange;
   margin: auto;
   display: block;
 }
