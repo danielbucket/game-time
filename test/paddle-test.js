@@ -9,13 +9,11 @@ describe('Paddle', function() {
       var paddle = new Paddle({x:10, y:20, width:30, height:40, context:{}, canvas:{}})
       assert.isFunction(Paddle)
     })
-//not sure this second test says anything important
+
     it('"Paddle.move()" should move the paddle', function() {
       var paddle = new Paddle({x:10, y:20, width:30, height:40, context:{}, canvas:{width:100}, lP:false, rP:true})
-      //when paddle is moved the x value should increase by 10
       paddle.move()
       assert.equal(paddle.x, 20)
     })
   })
-
 })
