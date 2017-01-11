@@ -1,27 +1,9 @@
-var chai = require('chai');
-var assert = chai.assert;
+var assert = require('chai').assert
+var Ball = require("../lib/ball.js") //?
 
-var Ball = require("../lib/ball.js");
+describe('Ball', function() {
 
-describe('drawBall', function(){
-
-it('should be a function', function(){
-  var ball = new Ball();
-  assert.isFunction(drawBall);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+  it('"Ball" should be a function', function() {
+    assert.isFunction(Ball)
+  })
+})

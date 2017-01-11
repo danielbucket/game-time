@@ -1,19 +1,20 @@
-const chai = require('chai')
-const assert = chai.assert
+var assert = require('chai').assert
 
-const Paddle = require('../lib/paddle.js')
+var Paddle = require('../lib/paddle.js')
 
 describe('Paddle', function() {
   context('with default attributes', function() {
 
     it('"Paddle()" should be a function', function() {
-      var paddle = new Paddle(2,3,4,5)
+      var paddle = new Paddle({x:10, y:20, width:30, height:40, context:{}, canvas:{}})
       assert.isFunction(Paddle)
     })
 //not sure this second test says anything important
-    it('"Paddle.draw()" should draw a box', function() {
-      var paddle = new Paddle(2,3,4,5)
-      assert.equal(Paddle.draw)
+    it('"Paddle.move()" should move the paddle', function() {
+      var paddle = new Paddle({x:10, y:20, width:30, height:40, context:{}, canvas:{width:100}, lP:false, rP:true})
+      //when paddle is moved the x value should increase by 10
+      paddle.move()
+      assert.equal(paddle.x, 20)
     })
   })
 
