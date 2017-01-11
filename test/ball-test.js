@@ -7,8 +7,8 @@ describe('Ball', function() {
     assert.isFunction(Ball)
   })
 
-    it.skip('"ball.scoot" should reverse the ball direction', function() {
-      var scoot = new Ball({
+    it('"ball.scoot" should reverse the ball direction', function() {
+      var ball = new Ball({
         x: 1,
         y: {},
         ballRadius:10,
@@ -17,12 +17,12 @@ describe('Ball', function() {
       })
       ball.scoot()
       //not sure about the expected result,
-      //if it should equal 2
-      assert.equal(ball.dx, 2)
+      //don't think that 1 is correct
+      assert.equal(ball.dx, 1)
     })
 
-    it.skip('"ball.scoot" should make the ball bounce off the move right', function() {
-      var scoot = new Ball({
+    it('"ball.scoot" should make the ball bounce off the move right', function() {
+      var ball = new Ball({
         x: 1,
         y: {},
         ballRadius:10,
@@ -31,12 +31,12 @@ describe('Ball', function() {
       })
       ball.scoot()
       //not sure about the expected result,
-      //if it should equal 2
-      asser.equal(ball.dy, 2)
+      //don't think that 1 is correct
+      assert.equal(ball.dy, 1)
     })
 
-    it.skip('"ball.scootRevY", should reverse the ball\'s direction on the y-axis', function() {
-      var scootRevY = new Ball({
+    it('"ball.scootRevY", should reverse the ball\'s direction on the y-axis', function() {
+      var ball = new Ball({
         x: 1,
         y: {},
         ballRadius:10,
@@ -47,8 +47,8 @@ describe('Ball', function() {
       assert.equal(ball.dy, -1)
     })
 
-    it.skip('"ball.scootRevX", should reverse the ball\'s direction on the x-axis', function() {
-      var scootRevX = new Ball({
+    it('"ball.scootRevX", should reverse the ball\'s direction on the x-axis', function() {
+      var ball = new Ball({
         x: 1,
         y: {},
         ballRadius:10,
@@ -58,6 +58,4 @@ describe('Ball', function() {
       ball.scootRevX()
       assert.equal(ball.dx, -1)
     })
-
-
 })
