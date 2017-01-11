@@ -7,11 +7,28 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <canvas id="game"
+
+  <section class="window-load-page">
+    <h1 class="intro">Welcome to the Game. Sharpen your teeth, grind your grits and don't be a bitch about it!</h1>
+    <p class="to-play">To play our fantastic game, Mythical BreakOut, click on the button below.</p>
+    <button id="start-game" type="button">Play the Game!</button>
+    </button>
+  </section>
+
+  <section id="game-over">
+    <h1>Either you won the game or you lost. It doesn't matter because no one cares. Go home and cry about it.</h1>
+    <p>If you like emotional disambiguity, press the botton and play again!</p>
+    <button id='replay-game' type="button">Replay the Game!</button>
+  </section>
+
+  <section id="game-wrapper">
+    <canvas id="game"
           class="game-canvas"
           width="650"
           height="500">
-  </canvas>
+    </canvas>
+  </section>
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="main.bundle.js"></script>
 </body>
