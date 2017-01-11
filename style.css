@@ -1,3 +1,8 @@
+* {
+  font-family: 'VT323', monospace;
+text-align: center;
+}
+
 .window-load-page {
   width:100vw;
   display: flex;
@@ -5,9 +10,23 @@
   justify-content: center;
 }
 
-.intro, .to-play, button{
+.base-style{
   margin-left: 30%;
   margin-right: 30%
+}
+
+.btn-style {
+  margin: auto;
+  width: 90px;
+  /*this Indie Flower is for Bree! HAHAHA!*/
+  font-family: 'Indie Flower', cursive;
+  border: 1px solid #ff6b00;
+  background: none;
+}
+
+.welcome {
+  font-family: 'Bungee Shade', cursive;
+  font-size: 40pt;
 }
 
 #game-wrapper {
@@ -16,10 +35,11 @@
 
 #game-over {
   display: none;
+
 }
 
 .game-canvas {
-  border: 3px solid orange;
+  border: 3px solid #ff6b00;
   margin: auto;
   display: block;
 }
